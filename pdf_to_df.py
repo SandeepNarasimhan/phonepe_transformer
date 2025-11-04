@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 class PDFtoDataFrame:
-    def __init__(self, pdf_path, password):
+    def __init__(self, pdf_path, password = None):
         self.pdf_path = pdf_path
         self.password = password
 
