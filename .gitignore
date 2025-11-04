@@ -1,0 +1,20 @@
+*.pyc
+*.pyo
+__pycache__/
+.env
+
+.venv/
+
+## files
+PhonePe_Transaction_Statement_all.pdf
+PhonePe_Transaction_Statement.pdf
+2023-2024_spending.csv
+spending_till_nov_2025.csv
+till_nov_2025.txt
+data.txt
+new.txt
+dashboard_csv.py
+dashboard_text.py
+dashboard_final.py
+formating.py
+Analysis.py
