@@ -26,9 +26,8 @@ st.sidebar.info("Upload a password-protected PDF statement and visualize your tr
 uploaded_pdf = st.sidebar.file_uploader("📂 Upload your PDF file", type=["pdf"])
 password = st.sidebar.text_input("🔒 Enter PDF password (if protected)", type="password")
 
-# -----------------------------
-# Session State Handling
-# -----------------------------
+
+# Session State
 if "df" not in st.session_state:
     st.session_state.df = None
 
@@ -66,7 +65,7 @@ if st.session_state.df is not None:
     st.title("Personal Transaction Dashboard")
     st.markdown("Visualize your spending and income patterns interactively")
     
-    # ---------- Date Range Filter ----------
+    # Date Range Filter
     min_date, max_date = df["Date"].min(), df["Date"].max()
     start_date, end_date = st.sidebar.date_input(
         "Select Date Range", [min_date, max_date],
@@ -75,7 +74,7 @@ if st.session_state.df is not None:
 
     filtered_df = df[(df["Datetime"] >= pd.to_datetime(start_date)) & (df["Datetime"] <= pd.to_datetime(end_date))]
     
-    # ---------- Sidebar Filters ----------
+    # Sidebar Filters
     st.sidebar.header("🔍 Additional Filters")
 
     # Merchant / Description filter
@@ -103,7 +102,7 @@ if st.session_state.df is not None:
         (filtered_df['Amount'] <= selected_amount[1])
     ]
 
-    # ---------- KPIs ----------
+    # KPIs
     total_debit = filtered_df.loc[filtered_df["Type"] == "Debited", "Amount"].sum()
     total_credit = filtered_df.loc[filtered_df["Type"] == "Credited", "Amount"].sum()
     net_flow = total_credit - total_debit
@@ -115,12 +114,12 @@ if st.session_state.df is not None:
     
     st.markdown("---")
 
-    # ---------- Tabs ----------
+    # Tabs
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "📈 Time Series", "🏪 Merchants", "🕒 Time Patterns", "📊 Summary Table", "📦 Export & Outliers"
     ])
 
-    # ---------- Tab 1: Time Series ----------
+    # Tab 1 Time Series
     with tab1:
         st.subheader("Daily Debit vs Credit")
         daily = filtered_df.groupby(["Date", "Type"])["Amount"].sum().reset_index()
@@ -141,7 +140,7 @@ if st.session_state.df is not None:
         cumulative['CumulativeNet'] = cumulative['Net'].cumsum()
         st.line_chart(cumulative['CumulativeNet'], use_container_width=True)
 
-    # ---------- Tab 2: Merchants & Categories ----------
+    # Tab 2: Merchants & Categories
     with tab2:
         st.subheader("Top 10 Spending Merchants")
         top_merchants = (
@@ -167,7 +166,7 @@ if st.session_state.df is not None:
         fig = px.pie(values=category_sum.values, names=category_sum.index, title='Spending by Category')
         st.plotly_chart(fig, use_container_width=True)
 
-    # ---------- Tab 3: Time Patterns ----------
+    # Tab 3: Time Patterns
     with tab3:
         st.subheader("Spending by Hour of Day")
         hourly = filtered_df.groupby(["Hour","Type"])["Amount"].sum().reset_index()
@@ -189,12 +188,12 @@ if st.session_state.df is not None:
         ax.set_title("Spending Heatmap (Day vs Hour)")
         st.pyplot(fig)
 
-    # ---------- Tab 4: Summary Table ----------
+    # Tab 4: Summary Table
     with tab4:
         st.subheader("Filtered Transactions")
         st.dataframe(filtered_df.sort_values("Datetime", ascending=False).reset_index(drop=True))
 
-    # ---------- Tab 5: Export & Outliers ----------
+    #  Tab 5: Export & Outliers 
     with tab5:
         st.subheader("Export Filtered Data")
         def convert_df(df):
