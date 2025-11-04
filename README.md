@@ -11,7 +11,7 @@ Type - Debit/Credit
 Amount - Amount of transaction in INR
 Description - Amount paid to or received from Details
 
-Feauture Plan:
+Plan:
 To Build a Dashboard to analyse:
 Timeseries, for example average transaction amount in a week or a month over period
 Merchant, Most transactions (credit/debit) made with whom
