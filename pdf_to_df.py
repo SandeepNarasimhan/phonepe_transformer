@@ -69,5 +69,6 @@ class PDFtoDataFrame:
 
         return self.text_to_dataframe(text)
 
-#converter = PDFtoDataFrame('PhonePe_Transaction_Statement_all.pdf', password)
+## Usage
+#converter = PDFtoDataFrame('PhonePe_Transaction_Statement.pdf', password)
 #converter.convert()
