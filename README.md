@@ -1,6 +1,6 @@
 # PhonePe Transaction Statement Visualizer
 
-![](/Pasted%20image.png)
+![](/img/Pasted%20image.png)
 
 This project is aimed to convert PDF statement which can be downloaded from the payment app (PhonePe Only) to a proper Dataframe using python
 
@@ -23,5 +23,5 @@ Etc.
 
 ### Example:
 
-![](/Pasted%20image%20(2).png)
-![](/Pasted%20image%20(3).png)
+![](/img/Pasted%20image%20(2).png)
+![](/img/Pasted%20image%20(3).png)
