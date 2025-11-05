@@ -18,3 +18,9 @@ Merchant, Most transactions (credit/debit) made with whom
 Transaction Behaviours
 Outliers 
 Etc.
+
+### Example:
+
+![](/Pasted%20image.png)
+![](/Pasted%20image%20(2).png)
+![](/Pasted%20image%20(3).png)
