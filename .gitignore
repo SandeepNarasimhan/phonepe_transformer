@@ -4,6 +4,7 @@ __pycache__/
 .env
 
 .venv/
+venv/
 
 ## files
 PhonePe_Transaction_Statement_all.pdf
