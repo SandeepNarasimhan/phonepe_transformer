@@ -14,6 +14,17 @@ from pdf_to_df import PDFtoDataFrame
 # load_dotenv()
 # password = os.getenv('password')
 
+## Font Awesome
+st.markdown("""
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+""", unsafe_allow_html=True)
+
+def fa_label(icon_name: str, text: str, color: str = "#ffffff", size: str = "16px"):
+    """
+    Returns an HTML label with a Font Awesome icon and custom text.
+    """
+    return f'<span style="font-size:{size}; color:{color};"><i class="fa-solid fa-{icon_name}"></i> {text}</span>'
 
 st.set_page_config(page_title="PDF Transaction Visualizer", layout="wide")
 
@@ -25,9 +36,11 @@ st.sidebar.info(
     "Upload a password-protected PDF statement and visualize your transactions easily."
 )
 
-uploaded_pdf = st.sidebar.file_uploader("📂 Upload your PDF file", type=["pdf"])
+st.sidebar.markdown(fa_label("file-pdf", "Upload your PDF file"), unsafe_allow_html=True)
+uploaded_pdf = st.sidebar.file_uploader("", type=["pdf"], label_visibility="collapsed")
+
 password = st.sidebar.text_input(
-    "🔒 Enter PDF password (if protected)", type="password"
+    "🔒 PDF password (if protected)", type="password"
 )
 
 
@@ -36,7 +49,7 @@ if "df" not in st.session_state:
     st.session_state.df = None
 
 # Process button
-process_btn = st.sidebar.button("🚀 Process PDF")
+process_btn = st.sidebar.button("Process PDF")
 
 if process_btn and uploaded_pdf:
     try:
@@ -47,6 +60,7 @@ if process_btn and uploaded_pdf:
             parser = PDFtoDataFrame("temp.pdf", password)
             df = parser.convert()
             st.session_state.df = df
+            os.remove('temp.pdf')
 
         st.sidebar.success("PDF successfully processed!")
 
