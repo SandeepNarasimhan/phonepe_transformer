@@ -2,11 +2,8 @@ import os
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from dotenv import load_dotenv
-from io import BytesIO
 
 from pdf_to_df import PDFtoDataFrame
 
@@ -31,7 +28,8 @@ def fa_label(icon_name: str, text: str, color: str = "#ffffff", size: str = "16p
     return f'<span style="font-size:{size}; color:{color};"><i class="fa-solid fa-{icon_name}"></i> {text}</span>'
 
 
-st.set_page_config(page_title="PDF Transaction Visualizer", layout="wide")
+st.set_page_config(page_title="PDF Transaction Visualizer", 
+    layout="wide")
 
 st.title("Transaction Visualizer")
 
@@ -302,7 +300,8 @@ if st.session_state.df is not None:
     with tab4:
         st.subheader("Filtered Transactions")
         st.dataframe(
-            filtered_df.sort_values("Datetime", ascending=False).reset_index(drop=True)
+            filtered_df.sort_values("Datetime", 
+                ascending=False).reset_index(drop=True)
         )
 
     #  Tab 5: Export & Outliers
