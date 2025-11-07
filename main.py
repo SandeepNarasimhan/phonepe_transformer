@@ -15,16 +15,21 @@ from pdf_to_df import PDFtoDataFrame
 # password = os.getenv('password')
 
 ## Font Awesome
-st.markdown("""
+st.markdown(
+    """
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
+
 
 def fa_label(icon_name: str, text: str, color: str = "#ffffff", size: str = "16px"):
     """
     Returns an HTML label with a Font Awesome icon and custom text.
     """
     return f'<span style="font-size:{size}; color:{color};"><i class="fa-solid fa-{icon_name}"></i> {text}</span>'
+
 
 st.set_page_config(page_title="PDF Transaction Visualizer", layout="wide")
 
@@ -36,12 +41,12 @@ st.sidebar.info(
     "Upload a password-protected PDF statement and visualize your transactions easily."
 )
 
-st.sidebar.markdown(fa_label("file-pdf", "Upload your PDF file"), unsafe_allow_html=True)
+st.sidebar.markdown(
+    fa_label("file-pdf", "Upload your PDF file"), unsafe_allow_html=True
+)
 uploaded_pdf = st.sidebar.file_uploader("", type=["pdf"], label_visibility="collapsed")
 
-password = st.sidebar.text_input(
-    "🔒 PDF password (if protected)", type="password"
-)
+password = st.sidebar.text_input("🔒 PDF password (if protected)", type="password")
 
 
 # Session State
@@ -60,7 +65,7 @@ if process_btn and uploaded_pdf:
             parser = PDFtoDataFrame("temp.pdf", password)
             df = parser.convert()
             st.session_state.df = df
-            os.remove('temp.pdf')
+            os.remove("temp.pdf")
 
         st.sidebar.success("PDF successfully processed!")
 
@@ -218,11 +223,27 @@ if st.session_state.df is not None:
 
         def categorize(desc):
             desc = str(desc).lower()
-            if any(x in desc for x in ["zomato", "restaurant", "cafe", "bar", "hotel", "veg", "swiggy"]):
+            if any(
+                x in desc
+                for x in [
+                    "zomato",
+                    "restaurant",
+                    "cafe",
+                    "bar",
+                    "hotel",
+                    "veg",
+                    "swiggy",
+                ]
+            ):
                 return "Food"
-            if any(x in desc for x in ["uber", "ola", "taxi", "travel", "ksrtc", 'depot', 'bmtc']):
+            if any(
+                x in desc
+                for x in ["uber", "ola", "taxi", "travel", "ksrtc", "depot", "bmtc"]
+            ):
                 return "Travel"
-            if any(x in desc for x in ["amazon", "flipkart", "shopping", 'store', 'myntra']):
+            if any(
+                x in desc for x in ["amazon", "flipkart", "shopping", "store", "myntra"]
+            ):
                 return "Shopping"
             if any(x in desc for x in ["bill", "electricity", "water", "utility"]):
                 return "Utilities"
